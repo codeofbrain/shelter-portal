@@ -1,7 +1,7 @@
 
 # Social Portal for Shelter & Community Hub
 
-A Django-based web platform designed to streamline communication and coordination between **residents (refugees from Ukraine)**, **shelter management (administration)**, and **housemasters (technical/maintenance staff)**.
+A Django-based web platform designed to streamline communication and coordination between **residents (refugees from Ukraine)**, **shelter management (administration)**, and **the maintenance staff (technical proffessionals)**.
 
 This project was built to automate internal processes, improve response times for maintenance requests, and ensure vital organizational updates reach every resident instantly.
 
@@ -16,7 +16,7 @@ The portal is split into logical workflows tailored for three distinct user role
     * **Interactive Duty Roster:** View the digital shift schedule to see current cleaning duties and community tasks in real-time.
     * **Announcement Board:** View official updates from management and publish personal notices (e.g., lost and found items,communitysuggestions, or initiatives). 
     * **Maintenance Requests:** Easily submit technical tickets directly to housemasters for room repairs or utility issues.
-* **For Housemasters (Technical Staff):**
+* **For Maintenace Staff (Technical Team):**
     * **Issue Tracker:** A streamlined dashboard to view pending, ongoing, and completed repair requests submitted by residents.
     * **Status Management:** Update ticket statuses in real-time to keep residents and administration informed.
 * **For Management (Administration):**
