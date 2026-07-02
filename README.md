@@ -14,8 +14,7 @@ The portal is split into logical workflows tailored for three distinct user role
 * **For Residents:**
     * **Personal Dashboard:** View housing rules, assignment details, and status updates.
     * **Interactive Duty Roster:** View the digital shift schedule to see current cleaning duties and community tasks in real-time.
-    * **Announcement Board:** View official updates from management and publish personal notices (e.g., lost and found items,
-    *                         community suggestions, or initiatives).
+    * **Announcement Board:** View official updates from management and publish personal notices (e.g., lost and found items,communitysuggestions, or initiatives). 
     * **Maintenance Requests:** Easily submit technical tickets directly to housemasters for room repairs or utility issues.
 * **For Housemasters (Technical Staff):**
     * **Issue Tracker:** A streamlined dashboard to view pending, ongoing, and completed repair requests submitted by residents.
