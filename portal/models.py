@@ -14,6 +14,7 @@ class AnnouncementComments(models.Model):
     announcement = models.ForeignKey(Announcement,on_delete=models.CASCADE)
     comment = models.TextField(verbose_name='comments')
     date_added = models.DateTimeField(auto_now_add=True, verbose_name='Date')
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.comment

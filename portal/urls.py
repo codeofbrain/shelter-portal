@@ -10,11 +10,14 @@ urlpatterns = [
     path('news/',views.news,name='news'),
     path('main/',views.main,name='main'),
     path('about/',views.about,name='about'),
-    path('remont/',views.remont,name='remont'),
+    path('maintenance/',views.maintenance,name='maintenance'),
     path('putzplan/',views.putzplan,name='putzplan'),
     path('volunteer/',views.volunteer,name='volunteer'),
     path('utility/',views.utility,name='utility'),
     path('change_duty_status/<int:pk>/',views.change_duty_status,name='change_duty_status'),
+    path('comments/<int:pk>/',views.comments,name='comments'),
+    path('edit_new/<int:new_id>/',views.edit_new,name='edit_new'),
+
 
     # --- Hausmasters interface ---
     path('master_list/',views.master_list,name='master_list'),

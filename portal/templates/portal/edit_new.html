@@ -1,0 +1,16 @@
+
+
+
+
+{% extends 'portal/base.html' %}
+{% load django_bootstrap5 %}
+
+{% block content %}
+
+<form action="{% url 'portal:edit_new' new.id %}" method="post">
+    {% csrf_token %}
+    {% bootstrap_form form_edit_new %}
+    {% bootstrap_button button_type="submit" content='save changes'  %}
+</form>
+
+{% endblock content %}

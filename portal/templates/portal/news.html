@@ -1,10 +1,13 @@
-{% extends 'portal/base.html' %} {% block title %}Главная - Новости{% endblock %}
+{% extends 'portal/base.html' %}
+{% block title %}Главная - Новости{% endblock %}
 
 {% block content %}
 {% load string_extras %}
+{% load django_bootstrap5 %}
+
 <div class="container mt-4">
     <div class="text-center mb-5" >
-        <h1 class="display-4 fw-bold text-warning text-center my-4 fs-3" >📢 Оголошення та події:</h1>
+        <h1 class="display-4 fw-bold text-primary text-center my-4 fs-3" >📢 Оголошення та події:</h1>
     </div>
     <div class="row">
         <div class="col-md-4 mb-4">
@@ -12,22 +15,22 @@
                 <div class="card-header bg-warning text-dark text-center py-3 rounded-top-4">
                     <h3 class="mb-0 fw-bold">📝 Ваше оголошення</h3>
                 </div>
-                <div class="card-body p-4 bg-primary">
+                <div class="card-body p-4">
                     <form method="post">
                         {% csrf_token %}
 
                             <div class="form-group mb-3">
-                                <label class="form-label fw-semibold text-warning">Номер кімнаты</label>
+                                <label class="form-label fw-semibold text-primary">Номер кімнаты</label>
                                     <input type="text" name="room_number" value="{{room_number}}" class="form-control bg_light" readonly>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label fw-semibold text-warning">Ім'я</label>
+                                <label class="form-label fw-semibold text-primary">Ім'я</label>
                                     <input type="text" name="user_name" value="{{user_name}}" class="form-control bg_light" readonly>
                             </div>
 
 
                         <div class="mb-4">
-                            <label class="form-label fw-semibold"></label>
+                            <label class="form-label text-primary fw-semibold">Оголошення</label>
                             <textarea name="content" class="form-control" rows="5" placeholder="Напишіть оголошення..." required></textarea>
                         </div>
 
@@ -47,16 +50,51 @@
         <div class="col-md-7 mx-auto mb-4">
             {% for new in news %}
                 <div class="card shadow-sm mb-4 p-2 border-0">
-                    <div class="card-body mb-3">
+                    <div class="card-body">
                         <p class="card-text text-secondary">{{ new.content }}</p>
                         <div class="d-flex justify-content-between align-items-center mt-3">
                             <div class="text-muted small">
                                 <span class="badge bg-light text-dark">{{ new.owner }}</span>
                                 <span class="badge bg-light text-dark">{{ new.data_posted }}</span>
                             </div>
-                            <button class="btn btn-outline-warning btn-sm">Коментарі</button>
+
+                            <div class="d-flex justify-content-between align-items-center mt-3"></div>
+                                <div>
+                                    {% if user == new.owner %}
+                                        <a href="{% url 'portal:edit_new' new.id %}" class="btn btn-link btn-sm p-0 text-decoration-none">Edit new</a>
+                                    {% endif %}
+                                </div>
+                                <div>
+                                     <button type="button" class="btn btn-sm btn-outline-primary"  data-bs-toggle="collapse" data-bs-target="#comments-{{new.id}}">
+                                         Kommentare ({{new.announcementcomments_set.count }})
+                                     </button>
+                                </div>
                         </div>
+                            <div class="collapse mt-2" id="comments-{{new.id}}">
+
+                                {% for comment in new.announcementcomments_set.all %}
+                                    <div class="mb-3 pb-2">
+                                        <p class="text-primary">{{comment.comment}}</p>
+                                        <span class="badge bg-light text-dark">{{comment.owner}},  {{comment.date_added}}</span>
+                                    </div>
+                                {% empty %}
+                                    <p class="text-muted small">Es gibe keine kommentare bis jetzt</p>
+                                {% endfor %}
+
+                                <form action="{% url 'portal:comments' pk=new.id %}"method="post">
+                                    {% csrf_token %}
+                                    {% bootstrap_form comments_form %}
+                                    <div class="d-flex justify-content-between align-items-center mt-3">
+                                        {% bootstrap_button button_type="submit" content='add comment' %}
+                                        <a href="{% url 'portal:news' %}" class="btn  ms-2 btn-warning">Zurück</a>
+                                    </div>
+                                </form>
+
+                            </div>
+
+
                     </div>
+
                </div>
             {% endfor %}
         </div>

@@ -1,14 +1,17 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
-from .models import Announcement, MaintenanceRequest, CleaningDuty,CleaningArea, CustomUser
-from .forms import MaintenanceForm, AnnouncementForm
+from .models import Announcement, MaintenanceRequest, CleaningDuty, CleaningArea, CustomUser, AnnouncementComments
+from .forms import MaintenanceForm, AnnouncementForm, AnnouncementCommentsForm
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.auth.decorators import user_passes_test
 from datetime import date
+from django.http import Http404
+
 
 def news(request):
     news = Announcement.objects.all().order_by('-data_posted')
+    comments_form = AnnouncementCommentsForm()
     username_parts = request.user.username.split('_')
     room_number = username_parts[0] if len(username_parts) > 1 else '_'
     user_name = username_parts[1] if len(username_parts) > 1 else '_'
@@ -19,19 +22,49 @@ def news(request):
             announcement.owner = request.user
             announcement.room_number = room_number
             announcement.save()
-
             return redirect('portal:news')
-
     else:
         form = AnnouncementForm()
 
-    context = {'form': form, 'user_name': user_name, 'room_number': room_number,'news':news}
+    context = {'form': form, 'comments_form': comments_form, 'user_name': user_name, 'room_number': room_number,'news':news}
     return render(request,'portal/news.html',context)
+
+
+def edit_new(request,new_id):
+    new = Announcement.objects.get(id=new_id)
+
+    if request.method != 'POST':
+        form_edit_new = AnnouncementForm(instance=new)
+    else:
+        form_edit_new = AnnouncementForm(instance=new,data=request.POST)
+        if form_edit_new.is_valid():
+            form_edit_new.save()
+            return redirect('portal:news')
+    context = {'new':new,'form_edit_new':form_edit_new}
+    return render(request,'portal/edit_new.html',context)
+
+
+def comments(request,pk):
+    anzeige = Announcement.objects.get(id=pk)
+    if request.method != 'POST':
+        form = AnnouncementCommentsForm()
+    else:
+        form = AnnouncementCommentsForm(data=request.POST)
+        if form.is_valid():
+            new_comment = form.save(commit=False)
+            new_comment.announcement = anzeige
+            new_comment.owner = request.user
+            new_comment.save()
+            return redirect('portal:news')
+    context = {'anzeige':anzeige,'form':form}
+    return redirect('portal:news')
 
 
 
 def index(request):
     return render(request,'portal/index.html')
+
+
 
 @login_required()
 def main(request):
@@ -39,6 +72,8 @@ def main(request):
     if user.master:
         return redirect('portal:main_for_masters')
     return render(request,'portal/main.html')
+
+
 
 def about(request):
     return render(request,'portal/about.html')
@@ -53,7 +88,7 @@ def utility(request):
 
 
 @user_passes_test(lambda u: u.is_authenticated and u.bewohner)
-def remont(request):
+def maintenance(request):
     username_parts = request.user.username.split('_')
     room_number = username_parts[0] if len(username_parts) > 1 else '_'
     user_name = username_parts[1] if len(username_parts) > 1 else '_'
@@ -65,14 +100,14 @@ def remont(request):
             repair_request.user_name = request.user
             repair_request.room_number = room_number
             repair_request.save()
-            messages.success(request, 'Ваша заявка принята')
-            return redirect('portal:remont')
+            messages.success(request, 'Ihre Anfrage wurde erfolgreich übermittelt')
+            return redirect('portal:maintenance')
 
     else:
         form = MaintenanceForm(initial={'room_number': room_number, 'user_name': user_name})
 
     context = {'form':form,'user_name':user_name,'room_number':room_number,'user_requests':user_requests}
-    return render(request,'portal/remont.html',context)
+    return render(request,'portal/maintenance.html',context)
 
 
 
@@ -90,6 +125,8 @@ def putzplan(request):
         matrix.append({'area' : area, 'duties_by_week' : area_dutes})
     context = {'weeks': weeks , 'matrix':matrix, 'current_day': date.today(),'room_number':room_number}
     return render(request,'portal/putzplan.html',context)
+
+
 
 @login_required()
 def change_duty_status(request,pk):
@@ -114,11 +151,13 @@ def master_list(request):
     context = {'active_requests':active_requests}
     return render(request,'portal/master_list.html', context)
 
+
 @user_passes_test(lambda u: u.is_authenticated and u.master)
 def task_in_progress(request):
     active_requests = MaintenanceRequest.objects.filter(status='in_progress').order_by('user_name')
     context = {'active_requests':active_requests}
     return render(request,'portal/task_in_progress.html', context)
+
 
 @user_passes_test(lambda u: u.is_authenticated and u.master)
 def master_list_arhiv(request):
@@ -134,6 +173,7 @@ def complete_request(request,pk):
    claim.save()
    return redirect('portal:master_list_arhiv')
 
+
 def in_progress(request,pk):
    claim = MaintenanceRequest.objects.get(id=pk)
    claim.status = 'in_progress'
@@ -145,12 +185,15 @@ def canceled_tasks(request):
     canceled_tasks = MaintenanceRequest.objects.filter(status='none').order_by('user_name')
     context = {'canceled_tasks': canceled_tasks}
     return render(request, 'portal/canceled_tasks.html', context)
+
+
 def task_cancel(request,pk):
     claim = MaintenanceRequest.objects.get(id=pk)
     claim.status = 'none'
     claim.save()
     messages.warning(request,'Ваша заявка успешно отменена')
-    return redirect('portal:remont')
+    return redirect('portal:maintenance')
+
 
 @user_passes_test(lambda u: u.is_authenticated and u.master)
 def main_for_masters(request):
