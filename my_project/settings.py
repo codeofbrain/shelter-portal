@@ -35,7 +35,10 @@ INSTALLED_APPS = [
     #my app:
     'portal',
     'accounts',
+
+
     #other app:
+    'django.contrib.humanize',
     'django_bootstrap5',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -108,7 +111,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/6.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'de-at'
 
 TIME_ZONE = 'Europe/Berlin'
 

@@ -17,6 +17,9 @@ urlpatterns = [
     path('change_duty_status/<int:pk>/',views.change_duty_status,name='change_duty_status'),
     path('comments/<int:pk>/',views.comments,name='comments'),
     path('edit_new/<int:new_id>/',views.edit_new,name='edit_new'),
+    path('delete_new/<int:new_id>/',views.delete_new,name='delete_new'),
+    path('edit_comment/<int:com_id>/',views.edit_comment,name='edit_comment'),
+    path('delete_comment/<int:com_id>/',views.delete_comment, name='delete_comment'),
 
 
     # --- Hausmasters interface ---

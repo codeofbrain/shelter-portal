@@ -4,6 +4,8 @@
 {% block content %}
 {% load string_extras %}
 {% load django_bootstrap5 %}
+{% load humanize %}
+
 
 <div class="container mt-4">
     <div class="text-center mb-5" >
@@ -51,32 +53,103 @@
             {% for new in news %}
                 <div class="card shadow-sm mb-4 p-2 border-0">
                     <div class="card-body">
-                        <p class="card-text text-secondary">{{ new.content }}</p>
+                        <div class="d-flex justify-content-between align-items-start">
+                            <div>
+                                <p class="card-text text-secondary">{{ new.content }}</p>
+                            </div>
+                            {% if user == new.owner %}
+                                <div class="dropdown float-end">
+                                    <button class="btn btn-link text-muted p-0 text-decoration-none" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <!-- Иконка трёх точек (или можно просто написать три точки ...) -->
+                                        &#8942;
+                                    </button>
+                                    <ul class="dropdown-menu dropdown-menu-end">
+                                        <!-- Кнопка Изменить -->
+                                        <li>
+                                            <a class="dropdown-item text_success" href="{% url 'portal:edit_new' new.id %}">New ändern</a>
+                                        </li>
+                                        <!-- Кнопка Удалить -->
+                                        <li>
+                                            <form action="{% url 'portal:delete_new' new.id %}" method="POST" style="margin: 0;">
+                                                {% csrf_token %}
+                                                <button type="submit" class="dropdown-item text-danger" onclick="return confirm('Sein Sie sicher, dass Sie diese New löschen möchten?');">
+                                                    New löschen
+                                                </button>
+                                            </form>
+                                        </li>
+                                    </ul>
+                                </div>
+                            {% endif %}
+                        </div>
                         <div class="d-flex justify-content-between align-items-center mt-3">
                             <div class="text-muted small">
                                 <span class="badge bg-light text-dark">{{ new.owner }}</span>
-                                <span class="badge bg-light text-dark">{{ new.data_posted }}</span>
+                                <span class="badge bg-light text-dark">{{ new.data_posted|naturaltime}}</span>
                             </div>
 
                             <div class="d-flex justify-content-between align-items-center mt-3"></div>
-                                <div>
-                                    {% if user == new.owner %}
-                                        <a href="{% url 'portal:edit_new' new.id %}" class="btn btn-link btn-sm p-0 text-decoration-none">Edit new</a>
-                                    {% endif %}
-                                </div>
+
                                 <div>
                                      <button type="button" class="btn btn-sm btn-outline-primary"  data-bs-toggle="collapse" data-bs-target="#comments-{{new.id}}">
                                          Kommentare ({{new.announcementcomments_set.count }})
                                      </button>
                                 </div>
                         </div>
-                            <div class="collapse mt-2" id="comments-{{new.id}}">
+
+                            {% if request.GET.open_news_id == new.id|stringformat:'s' %}"
+                                <div class="mt-2" id="comments-{{new.id}}">
+                            {% else %}
+                                <div class="collapse mt-2" id="comments-{{new.id}}">
+                            {% endif %}
+
 
                                 {% for comment in new.announcementcomments_set.all %}
-                                    <div class="mb-3 pb-2">
-                                        <p class="text-primary">{{comment.comment}}</p>
-                                        <span class="badge bg-light text-dark">{{comment.owner}},  {{comment.date_added}}</span>
+                                    <div class="mb-3 pb-2" id="comment-{{comment.id}}">
+                                        <!-- Проверяем, нажали ли мы "Bearbeiten" именно на этот комментарий -->
+                                        {% if request.GET.edit_com_id == comment.id|slugify %}
+                                             <!-- Форма редактирования, которая отправит данные во views.py -->
+                                             <form method="post" action="{% url 'portal:edit_comment' comment.id %}">
+                                                  {% csrf_token %}
+                                                  <!-- Сама формочка из Django -->
+                                                  {% bootstrap_form form_edit_com %}
+                                                  <div class="mt-2">
+                                                      <button type="submit" class="btn btn-sm btn-primary">Speichern</button>
+                                                      <a href="{% url 'portal:news' %}" class="btn btn-sm btn-secondary">Abbrechen</a>
+                                                  </div>
+                                             </form>
+
+                                        {% else %}
+                                            <!-- Если кнопку не нажимали — просто показываем текст как обычно -->
+                                            <p class="card-text text-primary">{{ comment.comment }}</p>
+                                        {% endif %}
+                                        <div class="dropdown float-end">
+                                            <button class="btn btn-link text-muted p-0 text-decoration-none" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <!-- Иконка трёх точек (или можно просто написать три точки ...) -->
+                                                 &#8942;
+                                            </button>
+                                            <ul class="dropdown-menu dropdown-menu-end">
+                                               <!-- Кнопка Изменить -->
+                                                <li>
+                                                    <a class="dropdown-item" href="?edit_com_id={{ comment.id }}&open_news_id={{new.id}}#comment-{{ comment.id }}">
+                                                         Kommentar bearbeiten
+                                                    </a>
+                                                </li>
+                                                <!-- Кнопка Удалить -->
+                                                <li>
+                                                    <form action="{% url 'portal:delete_comment' comment.id %}" method="POST" style="margin: 0;">
+                                                        {% csrf_token %}
+                                                        <button type="submit" class="dropdown-item text-danger" onclick="return confirm('Sein Sie sicher, diese Kommentare löschen?');">
+                                                            Kommentar löschen
+                                                        </button>
+                                                    </form>
+
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <span class="badge bg-light text-dark">{{comment.owner}},  {{comment.date_added | naturaltime}}</span>
+
                                     </div>
+
                                 {% empty %}
                                     <p class="text-muted small">Es gibe keine kommentare bis jetzt</p>
                                 {% endfor %}

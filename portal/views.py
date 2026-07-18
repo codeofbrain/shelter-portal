@@ -7,7 +7,8 @@ from django.contrib import messages
 from django.contrib.auth.decorators import user_passes_test
 from datetime import date
 from django.http import Http404
-
+from django.views.decorators.http import require_POST
+from django.urls import reverse
 
 def news(request):
     news = Announcement.objects.all().order_by('-data_posted')
@@ -25,8 +26,13 @@ def news(request):
             return redirect('portal:news')
     else:
         form = AnnouncementForm()
+    form_edit_com = None
+    edit_com_id = request.GET.get('edit_com_id')
 
-    context = {'form': form, 'comments_form': comments_form, 'user_name': user_name, 'room_number': room_number,'news':news}
+    if edit_com_id:
+        comment_to_edit = AnnouncementComments.objects.filter(id=edit_com_id).first()
+        form_edit_com = AnnouncementCommentsForm(instance=comment_to_edit)
+    context = {'form': form, 'comments_form': comments_form, 'user_name': user_name, 'room_number': room_number,'news':news, 'form_edit_com': form_edit_com, 'edit_com_id': edit_com_id}
     return render(request,'portal/news.html',context)
 
 
@@ -44,6 +50,12 @@ def edit_new(request,new_id):
     return render(request,'portal/edit_new.html',context)
 
 
+@require_POST
+def delete_new(request, new_id):
+    new = get_object_or_404(Announcement, id=new_id)
+    new.delete()
+    return redirect('portal:news')
+
 def comments(request,pk):
     anzeige = Announcement.objects.get(id=pk)
     if request.method != 'POST':
@@ -59,6 +71,21 @@ def comments(request,pk):
     context = {'anzeige':anzeige,'form':form}
     return redirect('portal:news')
 
+def edit_comment(request, com_id):
+    comment = AnnouncementComments.objects.get(id=com_id)
+    if request.method == 'POST':
+        form_edit_com = AnnouncementCommentsForm(instance=comment, data=request.POST)
+        if form_edit_com.is_valid():
+            form_edit_com.save()
+            return redirect(f"{reverse('portal:news')}?open_news_id={comment.announcement.id}#comment-{comment.id}")
+    return redirect('portal:news')
+
+@require_POST
+def delete_comment(request, com_id):
+    comment = get_object_or_404(AnnouncementComments, id=com_id)
+    new_id = comment.announcement.id
+    comment.delete()
+    return redirect(f'/news/?open_news_id={new_id}')
 
 
 def index(request):
