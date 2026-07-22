@@ -6,27 +6,32 @@
 {% block content %}
 <div class="container py-3">
     <div class="row">
-        <div class="col-md-5 mb-4">
+        <div class="col-md-6 mb-4">
             <div class="row g-3">
-                <div class="col-6 ms-5">
+                <div class="text-center">
                     <img src="{% static 'portal/images/1.jpg' %}" class="img-fluid rounded-circle shadow-sm border border-white border-4">
                 </div>
 
             </div>
             <div class="text-warning text-center mt-4 border-0 shadow-sm rounded-4">
                 <i class="bi bi-info-circle me-2"></i>
-                Ви тримайтесь тут, гарного вам настрою!
+                <label class="form-label fw-semibold">
+                    <span class="fw-bold text-dark">Wir kümmern uns darum!</span>
+                    <small class="text-muted fw-normal ms-1">/ Ми подбаємо про це!</small>
+
+                </label>
+
             </div>
 
-            <table class="table table-hover mt-4">
+            <table class="table table-fixed table-hover mt-4">
                 <thead class="table-success">
                     <tr>
-                        <th>Кімната</th>
-                        <th>Ім'я</th>
-                        <th>Проблема</th>
-                        <th>Дата</th>
-                        <th>Статус</th>
-                        <th>Відміна</th>
+                        <th style="width: 10%">Zimmer<br><small class="text-muted fw-normal ms-1">Кімната</small></th>
+                        <th style="width: 15%">Name<br><small class="text-muted fw-normal ms-1">Ім'я</small></th>
+                        <th class="problem-column width: 40%">Problem<br><small class="text-muted fw-normal ms-1">Проблема</small></th>
+                        <th class="width: 15%">Datum<br><small class="text-muted fw-normal ms-1">Дата</small></th>
+                        <th style="width: 10%">Status<br><small class="text-muted fw-normal ms-1">Статус</small></th>
+                        <th style="width: 10%">Stornieren<br><small class="text-muted fw-normal ms-1">Скасувати</small></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -34,15 +39,15 @@
                         <tr>
                             <td>{{el.user_name.username | split_username:0}}</td>
                             <td>{{el.user_name.username | split_username:1}}</td>
-                            <td class="text-break">{{el.description}}</td>
+                            <td class="problem-column">{{el.description}}</td>
                             <td>{{el.date_added | date:"d.m.Y H:i"}}</td>
                             <td>{{el.get_status_display}}</td>
-                            <td><a href="{% url 'portal:task_cancel' el.id %}" class="btn btn-warning btn-sm">Cancel</a> </td>
+                            <td><a href="{% url 'portal:task_cancel' el.id %}" class="btn btn-sage-outline btn-sm">Stornieren <br><small class="text-muted fw-normal ms-1">Скасувати</small></a> </td>
 
                         </tr>
                     {% empty %}
                         <tr>
-                            <td colspan="4" class="text-center">Kein problem 👍</td>
+                            <td colspan="4" class="text-center">Kein problem 👍 / </td>
                         </tr>
                     {% endfor %}
                 </tbody>
@@ -50,41 +55,51 @@
                     <div style="margin: 20px 0;"
                         {% for message in messages %}
                             <div class="alert alert-{{message.tags}} alert-dismissible fade show text-center" role="alert">
-                            {{message}}
+                            {{message|safe}}
                         </div>
                     {% endfor %}
                 {% endif %}
             </table>
         </div>
-        <div class="col-md-6 offset-md-1">
+        <div class="col-md-5 offset-md-1">
             <div class="card shadow-lg border-2 rounded-4">
-                <div class="card-header bg-warning text-dark text-center py-3 rounded-top-4">
-                    <h3 class="mb-0 fw-bold">🛠 Заявка на ремонт</h3>
+                <div class="card-header bg-success-subtle text-dark text-center py-2 rounded-top-4">
+                    <h4 class="mb-0 fw-bold">🛠 Reparaturantrag<br><small class="text-muted fw-normal fs-6 ms-1">Заявка на ремонт</small></h4>
                 </div>
-                <div class="card-body p-4 bg-primary">
+                <div class="card-body p-4">
                     <form method="post">
                         {% csrf_token %}
 
-                            <div class="form-group mb-3">
-                                <label class="form-label fw-semibold">Номер кімнаты</label>
+                            <div class="mb-3">
+                                <label class="form-label fw-semibold">
+                                    <span class="fw-bold">Zimmernummer</span>
+                                    <span class="fw-normal ms-1" style="font-size: 0.85rem; opacity: 0.7;">/ Номер кімнати</span>
+                                </label>
                                     <input type="text" name="room_number" value="{{room_number}}" class="form-control bg_light" readonly>
                             </div>
+                        
                             <div class="mb-3">
-                                <label class="form-label fw-semibold">Ім'я</label>
+                                <label class="form-label fw-semibold">
+                                    <span class="fw-bold">Name</span>
+                                    <span class="fw-normal ms-1" style="font-size: 0.85rem; opacity: 0.7;">/ Ім'я</span>
+                                </label>
                                     <input type="text" name="user_name" value="{{user_name}}" class="form-control bg_light" readonly>
                             </div>
 
 
                         <div class="mb-4">
-                            <label class="form-label fw-semibold">Що сталось?</label>
-                            <textarea name="description" class="form-control" rows="5" placeholder="Опишіть проблему..." required></textarea>
+                            <label class="form-label fw-semibold">
+                                    <span class="fw-bold">Was ist passiert</span>
+                                    <span class="fw-normal ms-1" style="font-size: 0.85rem; opacity: 0.7;">/ Що сталось</span>
+                                </label>
+                            <textarea name="description" class="form-control" rows="5" placeholder="Problem beschreiben... / Опишіть проблему..." required></textarea>
                         </div>
 
                         <div class="d-grid gap-2">
-                            <button type="submit" class="btn btn-warning btn-lg fw-bold shadow-sm">
-                                Отправить заявку
+                            <button type="submit" class="btn btn-sage-outline btn-lg fw-bold shadow-sm">
+                                Antrag senden<br><small class="text-muted fw-normal ms-1">Відправити заявку</small>
                             </button>
-                            <a href="{% url 'portal:main' %}" class="btn btn-outline-secondary btn-warning">Назад</a>
+                            <a href="{% url 'portal:main' %}" class="btn btn-sage-outline">Zurück <small class="text-muted fw-normal ms-1">/ Назад</small></a>
                         </div>
                     </form>
 
@@ -96,7 +111,7 @@
 
 <style>
     body {
-        background-color: #e3f2fd !important; /* Тот самый голубой фон */
+        background-color: #e3f2fd !important; /*голубой фон */
     }
     .card {
         transition: transform 0.3s;
@@ -105,11 +120,30 @@
         border-color: #ffc107;
         box-shadow: 0 0 0 0.25rem rgba(255, 193, 7, 0.25);
     }
+    .btn-sage-outline {
+    background-color: #ffffff;
+    color: #2b4c34;
+    border: 1px solid #d0e1d4; /* рамка в тон будущему фону */
+    transition: background-color 0.2s ease, border-color 0.2s ease; /* плавный переход */
+    }
+    .btn-sage-outline:hover {
+    background-color: #d0e1d4; /* бледно-зеленый */
+    color: #1e3725;
+    border-color: #b2ceb9;
+    }
+    .problem-column {
+    max-width: 200px;
+    min-width: 150px;
+    word-wrap: break-word;
+    white-space: normal;
+    }
+    .table-fixed {
+    word-break: normal;
+    overflow-wrap: break-word;
+    white-space: normal;
+    }
 </style>
-    <div class="containter-fluid text-center py-3 ">
-        <a class="btn btn-center btn-gradient shadow rounded-2 mt-2"
-                 href="{% url 'portal:master_list' %}">Zurück</a>
-    </div>
+
 
 <script>
     setTimeout(function(){

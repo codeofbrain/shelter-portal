@@ -1,44 +1,48 @@
 {% extends 'portal/base.html' %}
 {% block content %}
-<div class="container py-5">
-    <h2 class="text-center text-primary mb-4">Оберіть потрібний розділ:</h2>
-
+<div class="container py-4">
+    <h2 class="text-center text-primary mb-2">Wählen Sie den gewünschten Bereich:</h2>
+    <p class="text-center text-muted mb-5">Оберіть потрібний розділ</p>
     <div class="row g-4">
         <div class="col-md-6">
-            <a href="{url 'portal:putzplan'}" class="btn btn-outline-dark btn-lg w-100 py-4 shadow-sm border-2">
-                📜 Правила проживання
+            <a href="{% url 'portal:rules' %}" class="btn btn-outline-dark btn-lg w-100 py-4 shadow-sm border-2">
+                <div class="fw-bold text-dark">📜 Hausordnung</div>
+                <div class="text-muted small">Правила проживання</div>
             </a>
         </div>
 
         <div class="col-md-6">
             <a href="{% url 'portal:news' %}" class="btn btn-outline-dark btn-lg w-100 py-4 shadow-sm border-2">
-                📰 Дошка оголошень
+                <div class="fw-bold text-dark">📰 Schwarzes Brett</div>
+                <div class="text-muted small">Дошка оголошень</div>
             </a>
         </div>
 
         <div class="col-md-6">
             <a href="{% url 'portal:putzplan' %}" class="btn btn-outline-dark btn-lg w-100 py-4 shadow-sm border-2">
-                📊 Графік чергувань
+                <div class="fw-bold text-dark">📊 Dienstplan</div>
+                <div class="text-muted small">Графік чергувань</div>
             </a>
         </div>
 
         <div class="col-md-6">
             <a href="{% url 'portal:volunteer' %}" class="btn btn-outline-dark btn-lg w-100 py-4 shadow-sm border-2">
-                🤝 Наші волонтери
+                <div class="fw-bold text-dark">🤝 Unsere Ehrenamtlichen</div>
+                <div class="text-muted small">Наші волонтери</div>
             </a>
         </div>
 
-
-
         <div class="col-md-6">
             <a href="{% url 'portal:maintenance' %}" class="btn btn-outline-dark btn-lg w-100 py-4 shadow-sm border-2">
-               🛠 Заявки на ремонт
+                <div class="fw-bold text-dark">🛠 Reparaturanträge</div>
+                <div class="text-muted small">Заявки на ремонт</div>
             </a>
         </div>
 
         <div class="col-md-6">
             <a href="{% url 'portal:utility' %}" class="btn btn-outline-dark btn-lg w-100 py-4 shadow-sm border-2">
-                📎 Корисні посилання и телефони
+                <div class="fw-bold text-dark">🛡 Nützliche Links und Telefonnummern </div>
+                <div class="text-muted small">Корисні посилання и телефони</div>
             </a>
         </div>
 

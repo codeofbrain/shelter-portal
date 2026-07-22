@@ -21,7 +21,7 @@ class AnnouncementCommentsForm(forms.ModelForm):
             'comment': forms.Textarea(attrs={
                 'class': 'form-control form-control-sm',
                 'rows': 2,
-                'placeholder':'Ihr Kommentar...'
+                'placeholder':'Ihr Kommentar... / Ваш коментар...'
             })
         }
         labels = {

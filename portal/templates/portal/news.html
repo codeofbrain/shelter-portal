@@ -9,38 +9,36 @@
 
 <div class="container mt-4">
     <div class="text-center mb-5" >
-        <h1 class="display-4 fw-bold text-primary text-center my-4 fs-3" >📢 Оголошення та події:</h1>
+        <h1 class="display-4 fw-bold text-primary text-center my-4 fs-3" >📢 Ankündigungen und Events
+            <small class="text-primary fs-6 fw-normal ms-1" style="font-size: 0.85rem; opacity: 0.7;">/ Оголошення та подїї</small> </h1>
     </div>
     <div class="row">
         <div class="col-md-4 mb-4">
             <div class="card shadow-lg border-2 rounded-4">
-                <div class="card-header bg-warning text-dark text-center py-3 rounded-top-4">
-                    <h3 class="mb-0 fw-bold">📝 Ваше оголошення</h3>
-                </div>
                 <div class="card-body p-4">
                     <form method="post">
                         {% csrf_token %}
 
                             <div class="form-group mb-3">
-                                <label class="form-label fw-semibold text-primary">Номер кімнаты</label>
+                                <label class="form-label fw-semibold text-primary">Zimmernummer<small class="text-primary fw-normal ms-1" style="font-size: 0.75rem; opacity: 0.7;">/ Номер кімнати</small></label>
                                     <input type="text" name="room_number" value="{{room_number}}" class="form-control bg_light" readonly>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label fw-semibold text-primary">Ім'я</label>
+                                <label class="form-label fw-semibold text-primary">Name<small class="text-primary fw-normal ms-1" style="font-size: 0.75rem; opacity: 0.7;">/ Ім'я</small></label>
                                     <input type="text" name="user_name" value="{{user_name}}" class="form-control bg_light" readonly>
                             </div>
 
 
                         <div class="mb-4">
-                            <label class="form-label text-primary fw-semibold">Оголошення</label>
-                            <textarea name="content" class="form-control" rows="5" placeholder="Напишіть оголошення..." required></textarea>
+                            <label class="form-label text-primary fw-semibold">Ankündigung<small class="text-primary fw-normal ms-1" style="font-size: 0.75rem; opacity: 0.7;">/ Оголошення</small></label>
+                            <textarea name="content" class="form-control" rows="5" placeholder="Ankündigung schreiben...     Напишіть оголошення..." required></textarea>
                         </div>
 
                         <div class="d-grid gap-2">
-                            <button type="submit" class="btn btn-warning btn-lg fw-bold shadow-sm">
-                                Повісити оголошення
+                            <button type="submit" class="btn btn-outline-warning fw-bold shadow-sm">
+                                Veröffentlichen<br><small class="fw-normal opacity-75">Опубліковати</small>
                             </button>
-                            <a href="{% url 'portal:main' %}" class="btn btn-outline-secondary btn-warning">Назад</a>
+                            <a href="{% url 'portal:main' %}" class="btn btn-outline-primary">Zurück<small class="fw-normal opacity-75"> / Назад</small></a>
                         </div>
                     </form>
 
@@ -60,20 +58,24 @@
                             {% if user == new.owner %}
                                 <div class="dropdown float-end">
                                     <button class="btn btn-link text-muted p-0 text-decoration-none" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <!-- Иконка трёх точек (или можно просто написать три точки ...) -->
                                         &#8942;
                                     </button>
                                     <ul class="dropdown-menu dropdown-menu-end">
                                         <!-- Кнопка Изменить -->
                                         <li>
-                                            <a class="dropdown-item text_success" href="{% url 'portal:edit_new' new.id %}">New ändern</a>
+                                            <a class="dropdown-item py-2" href="{% url 'portal:edit_new' new.id %}">
+                                                <div class="text-success">Anzeige bearbeiten</div>
+                                                <small class="text-success d-block opacity-75" style="font-size: 0.75rem;">Редагувати оголошення</small>
+                                            </a>
                                         </li>
+                                        <li><hr class="dropdown-divider my-1"></li>
                                         <!-- Кнопка Удалить -->
                                         <li>
                                             <form action="{% url 'portal:delete_new' new.id %}" method="POST" style="margin: 0;">
                                                 {% csrf_token %}
-                                                <button type="submit" class="dropdown-item text-danger" onclick="return confirm('Sein Sie sicher, dass Sie diese New löschen möchten?');">
-                                                    New löschen
+                                                <button type="submit" class="dropdown-item py-2 text-danger" onclick="return confirm('Anzeige löschen? / Видалити оголошення?');">
+                                                    <div class="fw-bold">Anzeige löschen</div>
+                                                    <small class="text-danger d-block opacity-75" style="font-size: 0.75rem;">Видалити оголошення</small>
                                                 </button>
                                             </form>
                                         </li>
@@ -124,22 +126,24 @@
                                         {% endif %}
                                         <div class="dropdown float-end">
                                             <button class="btn btn-link text-muted p-0 text-decoration-none" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                <!-- Иконка трёх точек (или можно просто написать три точки ...) -->
                                                  &#8942;
                                             </button>
                                             <ul class="dropdown-menu dropdown-menu-end">
                                                <!-- Кнопка Изменить -->
                                                 <li>
                                                     <a class="dropdown-item" href="?edit_com_id={{ comment.id }}&open_news_id={{new.id}}#comment-{{ comment.id }}">
-                                                         Kommentar bearbeiten
+                                                         <div class="text-success">Kommentar bearbeiten</div>
+                                                         <small class="text-success d-block opacity-75" style="font-size: 0.75rem;">Редагувати коментар</small>
                                                     </a>
                                                 </li>
+                                                <li><hr class="dropdown-divider my-1"></li>
                                                 <!-- Кнопка Удалить -->
                                                 <li>
                                                     <form action="{% url 'portal:delete_comment' comment.id %}" method="POST" style="margin: 0;">
                                                         {% csrf_token %}
                                                         <button type="submit" class="dropdown-item text-danger" onclick="return confirm('Sein Sie sicher, diese Kommentare löschen?');">
-                                                            Kommentar löschen
+                                                            <div class="text-danger">Kommentar löschen</div>
+                                                         <small class="text-danger d-block opacity-75" style="font-size: 0.75rem;">Видалити коментар</small>
                                                         </button>
                                                     </form>
 
@@ -151,15 +155,18 @@
                                     </div>
 
                                 {% empty %}
-                                    <p class="text-muted small">Es gibe keine kommentare bis jetzt</p>
+                                    <p class="text-muted small">Es gibe keine kommentare bis jetz...<br><small class="fw-normal ms-1" style="font-size: 0.85rem; opacity: 0.75;">Ще немає жодного коментаря...</small></p>
                                 {% endfor %}
 
                                 <form action="{% url 'portal:comments' pk=new.id %}"method="post">
                                     {% csrf_token %}
                                     {% bootstrap_form comments_form %}
                                     <div class="d-flex justify-content-between align-items-center mt-3">
-                                        {% bootstrap_button button_type="submit" content='add comment' %}
-                                        <a href="{% url 'portal:news' %}" class="btn  ms-2 btn-warning">Zurück</a>
+                                        <button type="submit" class="btn btn-outline-warning btn-sm ms-2">
+                                             Senden<br><small class="fw-normal ms-1" style="font-size: 0.85rem; opacity: 0.75;">Надіслати</small>
+                                        </button>
+
+                                        <a href="{% url 'portal:news' %}" class="btn btn-outline-primary btn-sm ms-2">Zurück<br><small class="fw-normal ms-1" style="font-size: 0.85rem; opacity: 0.75;">Назад</small></a>
                                     </div>
                                 </form>
 
@@ -176,7 +183,7 @@
 
 <style>
     body {
-        background-color: #e3f2fd !important; /* Тот самый голубой фон */
+        background-color: #e3f2fd !important; /*голубой фон */
     }
     .card {
         transition: transform 0.3s;

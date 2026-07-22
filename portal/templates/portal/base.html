@@ -29,18 +29,22 @@
         <div class="container">
             <a class="navbar-brand fw-bold text-primary " href="{% url 'portal:index' %}">🏠 <span class="text-primary">Hotel</span><span class=text-warning> "Goldene Uhr"></span> <span class="fi fi-ua"></span> <span class="fi fi-de"></span></a>
             {% if user.is_authenticated %}
-                <h1 class="navbar-brand fw-bold text-center text-warning"><span class="text-primary">Hello</span>, <span class="text-warning">{{user.username|split_username:1}}</span></h1>
+                <h1 class="navbar-brand fw-bold text-center text-warning"><span class="text-primary">Hallo</span>, <span class="text-warning">{{user.username|split_username:1}}</span></h1>
             {% else %}
                 <form action="{% url 'accounts:login' %}" method="post" class="d-line">
                     {% csrf_token %}
-                    {% bootstrap_button button_type="submit" content='Log in' button="btn-outline-warning btn-sm ms-2"%}
+                    <button type="submit" class="btn btn-outline-warning btn-sm ms-2">
+                        'Einloggen / Увійти'
+                    </button>
                 </form>
             {% endif %}
 
             {% if user.is_authenticated %}
                 <form action="{% url 'accounts:logout' %}" method="post" class="d-line">
                     {% csrf_token %}
-                    {% bootstrap_button button_type="submit" content='Log out' button="btn-outline-warning btn-sm ms-2"%}
+                    <button type="submit" class="btn btn-outline-primary btn-sm ms-2">
+                        'Ausloggen / Вийти'
+                    </button>
                 </form>
             {% endif %}
             {% if user.is_staff %}
@@ -49,7 +53,7 @@
             {% endif %}
 
             <div class="navbar-nav ms-auto">
-                <a class="nav-link fw-semibold text-warning" href="{% url 'portal:about' %}">About us👨‍👨‍👧‍👦 </a>
+                <a class="nav-link fw-semibold text-warning" href="{% url 'portal:about' %}">Über uns / О нас👨‍👨‍👧‍👦 </a>
 
             </div>
 

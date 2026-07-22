@@ -127,7 +127,7 @@ def maintenance(request):
             repair_request.user_name = request.user
             repair_request.room_number = room_number
             repair_request.save()
-            messages.success(request, 'Ihre Anfrage wurde erfolgreich übermittelt')
+            messages.success(request, 'Ihre Anfrage wurde erfolgreich übermittelt.<br>Ваш запит успішно надіслано')
             return redirect('portal:maintenance')
 
     else:
@@ -218,7 +218,7 @@ def task_cancel(request,pk):
     claim = MaintenanceRequest.objects.get(id=pk)
     claim.status = 'none'
     claim.save()
-    messages.warning(request,'Ваша заявка успешно отменена')
+    messages.warning(request,'Ihre Anfrage wurde erfolgreich storniert.<br>Ваш запит успішно скасовано.')
     return redirect('portal:maintenance')
 
 
@@ -228,4 +228,5 @@ def main_for_masters(request):
 
 
 
-
+def rules(request):
+    return render(request,'portal/rules.html')

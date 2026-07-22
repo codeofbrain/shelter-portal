@@ -39,26 +39,33 @@
 {% endblock %}
 {% block page_header %}
 
-    <div class="p-4 mb-5 bg-primary bg-gradient text-white border rounded-5 shadow-lg">
-        <div class="container-fluid ру-3">
-            <h1 class="display-2 text-warning text-center text-gradient fw-bolder">Herzlich willkommen.</h1>
-            <p class="lead text-white text-center">Here you can read last news or give us your claim .</p>
-                {% if user.is_authenticated %}
+
+    <div class="welcome-banner text-center p-5 bg-primary text-white bg-gradient border rounded-5 shadow-lg">
+    <h1 class="display-4 fw-bold text-warning">Herzlich willkommen.</h1>
+    <p class="fs-5 text-light opacity-75 mt-n2">Ласкаво просимо.</p>
+
+    <p class="lead mt-3 mb-1">
+        Tauchen Sie ein in das pulsierende Leben unserer Unterkunft.
+    </p>
+    <p class="small text-white-50 mb-4">
+        Пориньте в пульсуюче життя нашого гуртожитку.
+    </p>
+    {% if user.is_authenticated %}
                     <div class="text-center mt-4">
                         <a class="btn btn-warning btn-gradient btn-lg mt-3"
                          href="{% url 'portal:main' %}">Weiter &raquo;</a>
                     </div>
                 {% else %}
                     <div class="text-center mt-4">
-                        <a class="btn btn-warning btn-gradient btn-lg mt-2"
+                        <a class="btn btn-warning btn-gradient btn-lg mt-3"
                          href="{% url 'accounts:register' %}">Registrieren &raquo;</a>
                     </div>
                 {% endif %}
-            {% if user.is_active == False %}
-                <h6 class="text-center text-warning text-gradient mt-2">Nur für Bewohner und Personal.</h6>
-            {% endif %}
-        </div>
-    </div>
+
+
+    <div class="mt-2 text-light">Nur für Bewohner und Personal.</div>
+    <div class="small text-white-50">Тільки для мешканців та персоналу.</div>
+</div>
     {% if messages %}
         <div style="margin: 20px 0;"
              {% for message in messages %}

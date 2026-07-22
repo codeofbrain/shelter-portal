@@ -1,0 +1,114 @@
+{% extends 'portal/base.html' %}
+{% block content %}
+
+<div class="container my-5">
+    <h2 class="mb-4 text-center text-primary fw-bold">Rechte und Pflichten der Nutzer / Права та обов'язки мешканців</h2>
+    <p class="text-center text-muted mb-5">Hausordnung der Unterkunft / Правила внутрішнього розпорядку</p>
+
+    <div class="row g-4">
+        <!-- КАРТОЧКА 1: ВАЖНО! ВРЕМЯ ТИШИНЫ (АКЦЕНТ) -->
+        <div class="col-md-6">
+            <div class="card h-100 shadow-sm border border-danger bg-light p-3">
+                <div class="card-body">
+                    <h5 class="card-title fw-bold mb-3 text-danger">
+                        <i class="bi bi-moon-stars-fill me-2"></i>1. Absolute Hausruhe / Абсолютна тиша
+                    </h5>
+
+                    <p class="mb-1 fw-bold text-dark fs-5">In den Zeiträumen von 22.00 - 08.00 Uhr und 13.00 - 15.00 Uhr ist absolute Hausruhe einzuhalten.</p>
+                    <p class="text-muted small mb-3 fs-6">У періоди з <strong>22:00 до 08:00</strong> та з <strong>13:00 до 15:00</strong> необхідно дотримуватися абсолютної тиші в будинку.</p>
+
+                    <p class="mb-1 text-dark">Fernseher, Radiogeräte und Handys sind auf Zimmerlautstärke einzustellen. Die Benutzung im Freien ist untersagt. Das Anbringen von Fernsehantennen und Parabolspiegeln am Haus ist nicht gestattet.</p>
+                    <p class="text-muted small mb-0">Телевізори, радіоприймачі та мобільні телефони повинні бути налаштовані на кімнатну гучність. Їх використання на вулиці заборонено. Встановлення телевізійних антен та супутникових тарілок на будинку не дозволяється.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- КАРТОЧКА 2: ПОЛЬЗОВАНИЕ КОМНАТАМИ И ГОСТИ -->
+        <div class="col-md-6">
+            <div class="card h-100 shadow-sm border-0 bg-light p-3">
+                <div class="card-body">
+                    <h5 class="card-title fw-bold mb-3 text-primary">2. Nutzung & Gäste / Користування та гості</h5>
+
+                    <p class="mb-1 fw-bold text-dark">Die überlassenen Räume dürfen nur von den eingewiesenen Personen und nur zu Wohnzwecken benutzt werden.</p>
+                    <p class="text-muted small mb-3">Надані приміщення можуть використовуватися лише тими особами, які туди заселені, і виключно для проживання.</p>
+
+                    <p class="mb-1 text-dark">Den Benutzern ist es untersagt Dritte Personen in die Unterkunft aufzunehmen. Die besuchsweise Aufnahme bedarf der vorherigen schriftlichen Zustimmung der Stadt Ravensburg.</p>
+                    <p class="text-muted small mb-0">Мешканцям заборонено приймати третіх осіб для проживання в гуртожитку. Тимчасове перебування гостей потребує попередньої письмової згоди міста Равенсбург.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- КАРТОЧКА 3: КЛЮЧИ И ОТВЕТСТВЕННОСТЬ -->
+        <div class="col-md-6">
+            <div class="card h-100 shadow-sm border-0 bg-light p-3">
+                <div class="card-body">
+                    <h5 class="card-title fw-bold mb-3 text-primary">3. Schlüssel & Sicherheit / Ключі та безпека</h5>
+
+                    <p class="mb-1 text-dark">Die überlassenen Schlüssel dürfen nicht hausfremden Personen überlassen werden. Nachschlüssel dürfen nicht angefertigt werden.</p>
+                    <p class="text-muted small mb-3">Надані ключі заборонено передавати стороннім особам. Виготовлення дублікатів ключів заборонено.</p>
+
+                    <p class="mb-1 text-dark">Der Verlust von Schlüssel ist kostenpflichtig. Sollten Rauchmelder entfernt werden oder Veränderungen am WLAN vorgenommen werden, werden die Kosten ebenfalls in Rechnung gestellt.</p>
+                    <p class="text-muted small mb-0">Втрата ключів є платною. Якщо будуть зняті датчики диму або внесені зміни в налаштування WLAN (Wi-Fi), витрати також будуть виставлені в рахунок мешканцю.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- КАРТОЧКА 4: ЖИВОТНЫЕ И ОБСТАНОВКА -->
+        <div class="col-md-6">
+            <div class="card h-100 shadow-sm border-0 bg-light p-3">
+                <div class="card-body">
+                    <h5 class="card-title fw-bold mb-3 text-primary">4. Tiere & Einrichtung / Тварини та облаштування</h5>
+
+                    <p class="mb-1 text-dark">Die Tierhaltung in der Unterkunft ist nicht erlaubt.</p>
+                    <p class="text-muted small mb-3">Утримання домашніх тварин у приміщенні гуртожитку заборонено.</p>
+
+                    <p class="mb-1 text-dark">Veränderungen an der zugewiesenen Unterkunft dürfen nur mit schriftlicher Zustimmung der Stadt Ravensburg vorgenommen werden. Ohne Zustimmung durchgeführte Veränderungen können von der Stadt Ravensburg zurückgebaut werden. Die Kosten trägt der Verursacher.</p>
+                    <p class="text-muted small mb-3">Будь-які зміни в наданому житлі дозволяється робити лише за письмовою згодою міста. Зміни без дозволу ліквідуються за рахунок того, хто їх здійснив.</p>
+
+                    <p class="mb-1 text-dark">Eigene Einrichtungsgegenstände dürfen nur in begründeten Fällen mit schriftlicher Zustimmung der Stadt Ravensburg in die Unterkunft gebracht werden. Insbesondere dürfen keine zusätzlichen Heizkörper und Kochplatten aufgestellt werden.</p>
+                    <p class="text-muted small mb-0">Власні меблі дозволяється приносити лише за письмовою згодою міста. Суворо заборонено встановлювати додаткові обігрівачі та кухонні плити.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- КАРТОЧКА 5: ПОРЯДОК, СТЕНЫ И РЕМОНТ -->
+        <div class="col-md-6">
+            <div class="card h-100 shadow-sm border-0 bg-light p-3">
+                <div class="card-body">
+                    <h5 class="card-title fw-bold mb-3 text-primary">5. Ordnung & Schäden / Порядок та пошкодження</h5>
+
+                    <p class="mb-1 text-dark">Das Anbringen von Regalen und Postern ist untersagt. Sowie Tätigkeiten, die Beschädigungen der Wände, Türen und Fensterrahmen der Unterkunft, im Treppenhaus oder in den Gängen verursacht.</p>
+                    <p class="text-muted small mb-3">Кріплення полиць та плакатів заборонено. Також заборонені будь-які дії, що призводять до пошкодження стін, дверей та віконних рам у житлі, на сходах чи в коридорах.</p>
+
+                    <p class="mb-1 text-dark">Die Hausbewohner sind verpflichtet den Hausfrieden zu wahren und aufeinander Rücksicht zu nehmen. Sie müssen die Unterkunft pfleglich behandeln und Schäden unverzüglich der Stadt Ravensburg melden. Die Kosten der Reparatur trägt im Falle einer Sachbeschädigung der Verursacher.</p>
+                    <p class="text-muted small mb-0">Мешканці зобов'язані підтримувати спокій і зважати на інтереси один одного. Вони повинні дбайливо ставитися до житла та негайно повідомляти місто про пошкодження. Витрати на ремонт несе той, хто його спричинив.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- КАРТОЧКА 6: УБОРКА И ТЕРРИТОРИЯ -->
+        <div class="col-md-6">
+            <div class="card h-100 shadow-sm border-0 bg-light p-3">
+                <div class="card-body">
+                    <h5 class="card-title fw-bold mb-3 text-primary">6. Reinigung & Außenbereich / Прибирання та територія</h5>
+
+                    <p class="mb-1 text-dark">Die Reinigung der Hausflure und Gemeinschaftsräume wechselt unter den Benutzern ab. Der Hausmeister ist stets berechtigt Anweisungen zu geben. Verunreinigungen sind vom Verursacher zu beseitigen sobald diese anfallen. Die Entsorgung von Unrat durch die Stadt Ravensburg kann den Nutzern in Rechnung gestellt werden.</p>
+                    <p class="text-muted small mb-3">Прибирання коридорів та спільних приміщень здійснюється мешканцями по черзі. Хаусмайстер має право давати вказівки. Забруднення мають ліквідуватися одразу. Вивезення сміття силами міста може бути виставлено в рахунок мешканцям.</p>
+
+                    <p class="mb-1 text-dark">Aus den Fenstern darf nichts geworfen, geschüttet werden. Benutzen Sie die entsprechenden Vorrichtungen für die Müllentsorgung.</p>
+                    <p class="text-muted small mb-3">З вікон заборонено що-небудь викидати або виливати. Використовуйте для утилизации сміття відповідні контейнери.</p>
+
+                    <p class="mb-1 text-dark">Kraftfahrzeuge dürfen nur auf den vorgesehenen Stellplätzen abgestellt werden. Die Bewohner haben die Streu- und Räumpflicht auszuführen.</p>
+                    <p class="text-muted small mb-0">Транспорт дозволено паркувати лише на спеціальних місцях. Мешканці зобов'язані виконувати роботи з прибирання снігу та посипання доріжок взимку.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    body {
+        background-color: #e3f2ffff !important;
+    }
+</style>
+{% endblock content %}
+
