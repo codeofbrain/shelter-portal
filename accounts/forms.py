@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import get_user_model
 from django.contrib.auth import views as auth_views
 from django import forms
+User = get_user_model()
 
 class HotelLoginForm(AuthenticationForm):
     field_order = ['room_number','username','password']
@@ -55,6 +56,17 @@ class HotelRegisterForm(UserCreationForm):
         fields = list(self.fields.keys())
         fields.insert(0,fields.pop(fields.index(('room_number'))))
         self.fields = {key : self.fields[key] for key in fields}
+
+    def clean(self):
+        cleaned_data = super().clean()
+        room_number = cleaned_data.get('room_number','').strip()
+        user_name = self.cleaned_data.get('username','').strip()
+
+        if room_number and user_name:
+            full_username = f'{room_number}_{user_name}'
+            if User.objects.filter(username=full_username).exists:
+                raise forms.ValidationError('Ein benutzer mit dieser Zimmernummer und diesem Namen existiert bereits')
+        return cleaned_data
 
     def save(self,commit=True):
         user = super().save(commit=False)

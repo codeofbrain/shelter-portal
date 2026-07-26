@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import User,AbstractUser
+from django.contrib.auth.models import AbstractUser
 from django.conf import settings
 class Announcement(models.Model):
     content = models.TextField(verbose_name='Texts of advertisement')

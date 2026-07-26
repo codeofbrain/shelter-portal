@@ -1,0 +1,34 @@
+{% extends 'portal/base.html' %}
+{% block content %}
+<div class="container py-5">
+    <h2 class="text-center text-primary mb-4"> Wählen Sie bitte einen Bereich aus:</h2>
+
+
+        <!-- Каждая ссылка станет красивой кнопкой-карточкой -->
+
+        <div class="col-md-6 col-lg-5 mx-auto">
+            <div class="d-grid gap-3">
+                <a href="{% url 'portal:main' %}?bypass=1" class="btn btn-outline-dark py-4 w-100 btn-lg shadow-sm border-2">
+                    👨‍👨‍👧‍👦 Bewohnerportal
+                </a>
+                <a href="{% url 'portal:main_for_masters' %}" class="btn btn-outline-dark btn-lg w-100 py-4 shadow-sm border-2">
+                   🛠 Servicebereich
+                </a>
+            </div>
+        </div>
+</div>
+<style>
+    body {
+        /* Твой светло-серый фон, но чуть мягче */
+        background-color: #e3f2ffff !important;
+    }
+    /* Эффект при наведении на карточки */
+    .btn-outline-dark:hover {
+        transform: translateY(-5px);
+        transition: 0.3s;
+        background-color: #ffc107 !important; /* фирменный желтый */
+        border-color: #ffc107 !important;
+        color: #000 !important;
+    }
+</style>
+{% endblock content %}

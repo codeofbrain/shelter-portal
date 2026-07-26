@@ -13,7 +13,7 @@ def register(request):
         form = HotelRegisterForm(request.POST)
         if form.is_valid():
             new_user = form.save()
-            messages.success(request, 'Melden Sie sich bitte bei Administrator')
+            messages.success(request, 'Melden Sie sich bitte beim Administrator. / Будь ласка, зверніться до адміністратора.')
             return redirect('portal:index')
 
     context = {'form':form}
