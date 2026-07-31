@@ -13,8 +13,13 @@
 
         <div class="col-md-6">
             <a href="{% url 'portal:news' %}" class="btn btn-outline-dark btn-lg w-100 py-4 shadow-sm border-2">
-                <div class="fw-bold text-dark">📰 Schwarzes Brett</div>
+                <div class="fw-bold text-dark">📰 Schwarzes Brett
+                    {% if new_news_count > 0 %}
+                         <span class="badge bg-primary ms-1">({{new_news_count}})</span>
+                    {% endif %}
+                </div>
                 <div class="text-muted small">Дошка оголошень</div>
+
             </a>
         </div>
 
@@ -42,7 +47,7 @@
         <div class="col-md-6">
             <a href="{% url 'portal:utility' %}" class="btn btn-outline-dark btn-lg w-100 py-4 shadow-sm border-2">
                 <div class="fw-bold text-dark">🛡 Nützliche Links und Telefonnummern </div>
-                <div class="text-muted small">Корисні посилання и телефони</div>
+                <div class="text-muted small">Корисні посилання та телефони</div>
             </a>
         </div>
 

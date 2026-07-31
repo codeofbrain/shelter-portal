@@ -41,6 +41,8 @@ class CustomUser(AbstractUser):
     bewohner = models.BooleanField(default=True)
     leiterin = models.BooleanField(default=False)
 
+    last_news_visit = models.DateTimeField(null=True,blank=True)
+
 
 class CleaningArea(models.Model):
     name_de = models.CharField(max_length=100,verbose_name='Name (DE)')

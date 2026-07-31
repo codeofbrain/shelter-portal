@@ -10,6 +10,8 @@ from django.http import Http404
 from django.views.decorators.http import require_POST
 from django.urls import reverse
 from accounts.templatetags.decorators import user_required
+from django.utils import timezone
+from django.utils.dateparse import parse_datetime
 
 @login_required()
 @user_required('bewohner')
@@ -19,6 +21,8 @@ def news(request):
     username_parts = request.user.username.split('_')
     room_number = username_parts[0] if len(username_parts) > 1 else '_'
     user_name = username_parts[1] if len(username_parts) > 1 else '_'
+    request.user.last_news_visit = timezone.now()
+    request.user.save(update_fields=['last_news_visit'])
     if request.method == 'POST':
         form = AnnouncementForm(request.POST)
         if form.is_valid():
@@ -95,7 +99,16 @@ def index(request):
 
 
 @login_required()
+
 def main(request):
+
+    last_visit = request.user.last_news_visit
+
+    if last_visit:
+        new_news_count = Announcement.objects.filter(data_posted__gt=last_visit).count()
+    else:
+        new_news_count = Announcement.objects.count()
+    print('new_news_count=',new_news_count)
     user = request.user
     if user.leiterin:
         if not request.GET.get('bypass'):
@@ -103,7 +116,8 @@ def main(request):
     elif user.master or user.is_superuser:
         print(f'{user.username} | master = {user.master} | leiterin = {user.leiterin} | bewohner = {user.bewohner}')
         return redirect('portal:main_for_masters')
-    return render(request,'portal/main.html')
+    context = {'new_news_count': new_news_count}
+    return render(request,'portal/main.html',context)
 
 
 
