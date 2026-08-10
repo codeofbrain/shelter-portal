@@ -1,0 +1,132 @@
+
+{% extends 'portal/base.html' %}
+{% load static %}
+{% block content %}
+<div class="container my-4" style="max-width: 900px;">
+
+    <div class="card shadow-sm border-0 p-4">
+
+        <div class="text-center mb-4">
+            <h1 class="fw-bold text-primary">Sozialarbeit / Büro Diakonie</h1>
+            <p class="text-muted fs-5">Florianstr 2/2, 88214 Ravensburg</p>
+        </div>
+
+        <div class="alert alert-danger border-danger shadow-sm mb-4">
+            <div class="d-flex align-items-center mb-2">
+                <span class="fs-3 me-2">🚫</span>
+                <h5 class="alert-heading mb-0 fw-bold">10.08. - 14.08. GESCHLOSSEN / ЗАКРИТО</h5>
+            </div>
+            <p class="mb-2">
+                Das Büro ist vom 10.08. bis 14.08. geschlossen.<br>
+                <small class="text-muted">Бюро зачинено з 10.08 по 14.08.</small>
+            </p>
+            <hr class="my-2">
+            <p class="mb-1"><strong>Ab / С 17.08:</strong> Zeynep Elciboga</p>
+            <p class="mb-1">
+                <strong>Tel / WhatsApp:</strong>
+                <a href="https://wa.me/4915563285032" target="_blank" class="fw-bold text-danger">📱 0155 63285032</a>
+            </p>
+            <p class="mb-0">
+                <strong>E-Mail:</strong>
+                <a href="mailto:z.elciboga@diakonie-oab.de">z.elciboga@diakonie-oab.de</a>
+            </p>
+        </div>
+
+
+        <div class="alert alert-warning border-warning d-flex align-items-center mb-4" role="alert">
+            <span class="fs-2 me-3">❗</span>
+            <div>
+                <strong>Sie mussen einen Termin vereinbaren. Ohne Termin ➔ keine Beratung.</strong><br>
+                <span>Ви повинні домовитися про зустріч. Без попереднього запису ➔ ви не отримаєте консультацію.</span>
+            </div>
+        </div>
+
+
+        <div class="bg-light p-3 rounded mb-4">
+            <h5 class="fw-bold">Allgemein / Загалом</h5>
+            <p class="mb-1"><strong>Tel:</strong> <a href="tel:07513592270">0751 35925270</a></p>
+            <p class="mb-0"><strong>E-Mail:</strong> <a href="mailto:integration-rv@diakonie-oab.de">integration-rv@diakonie-oab.de</a></p>
+        </div>
+
+
+        <h4 class="fw-bold mb-3">Ansprechpartner / Контактні особи</h4>
+
+        <div class="row g-3 mb-4">
+            <!-- Fabian Bodenmiller -->
+            <div class="col-md-6">
+                <div class="card h-100 border-primary shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title text-primary fw-bold">Herr Fabian Bodenmiller</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">Integrationsmanager / Diakonie</h6>
+                        <hr>
+                        <p class="card-text mb-2">
+                            <strong>Telefon/WhatsApp:</strong><br>
+                            <a href="https://wa.me/4915563285198" target="_blank" class="text-decoration-none">📱 0155 63285198</a>
+                        </p>
+                        <p class="card-text">
+                            <strong>E-Mail:</strong><br>
+                            <a href="mailto:f.bodenmiller@diakonie-oab.de">f.bodenmiller@diakonie-oab.de</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Herr Michael Schwarzkopf -->
+            <div class="col-md-6">
+                <div class="card h-100 border-secondary shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title text-primary fw-bold">Herr Michael Schwarzkopf</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">Vertretung / Представництво</h6>
+                        <hr>
+                        <p class="card-text mb-2">
+                            <strong>Telefon/WhatsApp:</strong><br>
+                            <a href="https://wa.me/4915563285033" target="_blank" class="text-decoration-none">📱 0155 63285033</a>
+                        </p>
+                        <p class="card-text mb-2">
+                            <strong>E-Mail:</strong><br>
+                            <a href="mailto:schwarzkopf@diakonie-oab.de">schwarzkopf@diakonie-oab.de</a>
+                        </p>
+                        <small class="text-muted d-block mt-2">
+                            <em>Er arbeitet nur an manchen Tagen. Bitte schreibt eine E-Mail oder WhatsApp. / Він працює тільки в деякі дні. Напишіть WhatsApp або E-Mail.</em>
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 7. Блок картинок и Google Maps -->
+        <h4 class="fw-bold mb-3 mt-4 text-center">Anfahrt & Gebäude / Проїзд та будівля</h4>
+
+        <div class="card shadow-sm border-0 h-100 p-3 d-flex flex-column justify-content-center align-items-center">
+            <p class="fw-bold mb-2">Google Maps</p>
+            <a href="https://www.google.com/maps/search/?api=1&query=Florianstraße+2/2,+88214+Ravensburg" target="_blank" class="btn btn-outline-primary">
+                📍 In Google Maps öffnen / Відкрити
+            </a>
+        </div>
+
+            <div class="text-center">
+                <div class="card shadow-sm border-0 h-100">
+                    <div class="row text-center">
+                        <div class="col-md-6 mb-4 mt-2">
+                            <img src="{% static 'portal/images/Adresse3.jpg' %}" class="card-img-top rounded" alt="Gebäude Diakonie" onerror="this.style.display='none'">
+                        </div>
+                        <div class="col-md-6 mb-4 mt-2">
+                            <img src="{% static 'portal/images/Adresse4.jpg' %}" class="card-img-top rounded" alt="Gebäude Diakonie" onerror="this.style.display='none'">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <div class="text-center mb-4">
+            <a href="{% url 'portal:volunteer' %}" class="btn btn-outline-primary mb-4">
+                &larr; Zurück / Назад
+            </a>
+        </div>
+    </div>
+</div>
+
+<style>
+    body {
+        background-color: #e3f2fd !important;
+    }
+</style>
+{% endblock %}

@@ -48,8 +48,8 @@
                 </form>
             {% endif %}
             {% if user.is_staff %}
-                <a class="nav-link text-danger fw-bold ms-auto"><a href="{% url 'accounts:new_user' %}">Antrage</a>
-                <a class="nav-link text-danger fw-bold ms-auto"><a href="{% url 'accounts:confirmed_users' %}">Condfirmed</a>
+                <a class="nav-link text-danger fw-bold ms-auto"><a href="{% url 'accounts:new_user' %}">Anträge</a>
+                <a class="nav-link text-danger fw-bold ms-auto"><a href="{% url 'accounts:confirmed_users' %}">Bestätigt</a>
             {% endif %}
 
             <div class="navbar-nav ms-auto">

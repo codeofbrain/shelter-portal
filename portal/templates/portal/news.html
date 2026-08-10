@@ -52,9 +52,16 @@
                 <div class="card shadow-sm mb-4 p-2 border-0">
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-start">
-                            <div>
-                                <p class="card-text text-secondary">{{ new.content }}</p>
-                            </div>
+                            {% if 'Leiterin' in new.owner.username %}
+                                <div>
+                                    <p class="card-text text-danger">{{ new.content }}</p>
+                                </div>
+                            {% else %}
+                                <div>
+                                    <p class="card-text text-secondary">{{ new.content }}</p>
+                                </div>
+                            {% endif %}
+
                             {% if user == new.owner %}
                                 <div class="dropdown float-end">
                                     <button class="btn btn-link text-muted p-0 text-decoration-none" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -134,36 +141,47 @@
                                              </form>
 
                                         {% else %}
+
                                             <!-- Если кнопку не нажимали — просто показываем текст как обычно -->
                                             <p class="card-text text-primary">{{ comment.comment }}</p>
-                                        {% endif %}
-                                        <div class="dropdown float-end">
-                                            <button class="btn btn-link text-muted p-0 text-decoration-none" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                 &#8942;
-                                            </button>
-                                            <ul class="dropdown-menu dropdown-menu-end">
-                                               <!-- Кнопка Изменить -->
-                                                <li>
-                                                    <a class="dropdown-item" href="?edit_com_id={{ comment.id }}&open_news_id={{new.id}}#comment-{{ comment.id }}">
-                                                         <div class="text-success">Kommentar bearbeiten</div>
-                                                         <small class="text-success d-block opacity-75" style="font-size: 0.75rem;">Редагувати коментар</small>
-                                                    </a>
-                                                </li>
-                                                <li><hr class="dropdown-divider my-1"></li>
-                                                <!-- Кнопка Удалить -->
-                                                <li>
-                                                    <form action="{% url 'portal:delete_comment' comment.id %}" method="POST" style="margin: 0;">
-                                                        {% csrf_token %}
-                                                        <button type="submit" class="dropdown-item text-danger" onclick="return confirm('Sein Sie sicher, diese Kommentare löschen?');">
-                                                            <div class="text-danger">Kommentar löschen</div>
-                                                         <small class="text-danger d-block opacity-75" style="font-size: 0.75rem;">Видалити коментар</small>
-                                                        </button>
-                                                    </form>
 
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <span class="badge bg-light text-dark">{{comment.owner}},  {{comment.date_added | naturaltime}}</span>
+                                        {% endif %}
+                                        {% if user == comment.owner %}
+                                            <div class="dropdown float-end">
+                                                <button class="btn btn-link text-muted p-0 text-decoration-none" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                     &#8942;
+                                                </button>
+                                                <ul class="dropdown-menu dropdown-menu-end">
+                                                   <!-- Кнопка Изменить -->
+                                                    <li>
+                                                        <a class="dropdown-item" href="?edit_com_id={{ comment.id }}&open_news_id={{new.id}}#comment-{{ comment.id }}">
+                                                             <div class="text-success">Kommentar bearbeiten</div>
+                                                             <small class="text-success d-block opacity-75" style="font-size: 0.75rem;">Редагувати коментар</small>
+                                                        </a>
+                                                    </li>
+                                                    <li><hr class="dropdown-divider my-1"></li>
+                                                    <!-- Кнопка Удалить -->
+                                                    <li>
+                                                        <form action="{% url 'portal:delete_comment' comment.id %}" method="POST" style="margin: 0;">
+                                                            {% csrf_token %}
+                                                            <button type="submit" class="dropdown-item text-danger" onclick="return confirm('Sein Sie sicher, diese Kommentare löschen?');">
+                                                                <div class="text-danger">Kommentar löschen</div>
+                                                                <small class="text-danger d-block opacity-75" style="font-size: 0.75rem;">Видалити коментар</small>
+                                                            </button>
+                                                        </form>
+
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        {% endif %}
+                                        {% if 'Leiterin' in comment.owner.username %}
+                                            <span class="badge bg-light text-danger">{{comment.owner}},  {{comment.date_added | naturaltime}}</span>
+                                        {% elif 'admin' in comment.owner.username %}
+                                            <span class="badge bg-light text-success">{{comment.owner}},  {{comment.date_added | naturaltime}}</span>
+                                        {% else %}
+                                            <span class="badge bg-light text-dark">{{comment.owner}},  {{comment.date_added | naturaltime}}</span>
+                                        {% endif %}
+
 
                                     </div>
 

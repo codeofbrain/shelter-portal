@@ -108,7 +108,7 @@ def main(request):
         new_news_count = Announcement.objects.filter(data_posted__gt=last_visit).count()
     else:
         new_news_count = Announcement.objects.count()
-    print('new_news_count=',new_news_count)
+
     user = request.user
     if user.leiterin:
         if not request.GET.get('bypass'):
@@ -201,6 +201,8 @@ def change_duty_status(request,pk):
 def master_list(request):
     active_requests = MaintenanceRequest.objects.filter(status='new').order_by('user_name')
     context = {'active_requests':active_requests}
+    request.user.last_new_aufgaben_list_visit = timezone.now()
+    request.user.save(update_fields=['last_new_aufgaben_list_visit'])
     return render(request,'portal/master_list.html', context)
 
 
@@ -258,7 +260,14 @@ def task_cancel(request,pk):
 @login_required()
 @user_required('master')
 def main_for_masters(request):
-    return render(request,'portal/main_for_masters.html')
+    last_visit = request.user.last_new_aufgaben_list_visit
+
+    if last_visit:
+        new_aufgaben_count = MaintenanceRequest.objects.filter(staus='new',date_added__gt=last_visit).count()
+    else:
+        new_aufgaben_count = MaintenanceRequest.objects.filter(status='new').count()
+    context = {'new_aufgaben_count': new_aufgaben_count}
+    return render(request,'portal/main_for_masters.html',context)
 
 
 @login_required()
@@ -270,3 +279,9 @@ def rules(request):
 @user_required('leiterin')
 def main_for_staff(request):
     return render(request,'portal/main_for_staff.html')
+
+
+@login_required()
+@user_required('bewohner')
+def diakonie(request):
+    return render(request,'portal/diakonie.html')

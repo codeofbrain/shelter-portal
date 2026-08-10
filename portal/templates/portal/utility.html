@@ -2,11 +2,113 @@
 {% block content %}
 
 
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Корисні контакти в Німеччині для українців</title>
-    <style>
-        :root {
+
+<title>Корисні контакти в Німеччині для українців</title>
+
+<div class="ua-help-container">
+
+    <div class="ua-important-notice">
+        <p>ℹ️ Важливо: Тимчасовий захист (параграф § 24) для українців у Німеччині офіційно продовжено до березня 2028 року.</p>
+    </div>
+
+    <h2>🚨 Екстрені служби (Безкоштовно, 24/7)</h2>
+    <div class="ua-table-wrapper">
+        <table class="ua-table">
+            <thead>
+                <tr>
+                    <th>Служба</th>
+                    <th>Номер телефону</th>
+                    <th>Коли дзвонити</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Поліція (Polizei)</strong></td>
+                    <td><a href="tel:110" class="ua-phone-link">📞 110</a></td>
+                    <td>Загроза безпеці, правопорушення, ДТП.</td>
+                </tr>
+                <tr>
+                    <td><strong>Пожежна служба та швидка</strong></td>
+                    <td><a href="tel:112" class="ua-phone-link">📞 112</a></td>
+                    <td>Загроза життю, важкі травми, пожежі, втрата свідомості.</td>
+                </tr>
+                <tr>
+                    <td><strong>Черговий лікар (Bereitschaftsdienst)</strong></td>
+                    <td><a href="tel:116117" class="ua-phone-link">📞 116 117</a></td>
+                    <td>Гострі симптоми (висока температура, біль) у нічний час або вихідні, коли звичайні праксиси зачинені.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <h2>🌐 Офіційні державні портали</h2>
+    <ul class="ua-list">
+        <li>
+            <a href="https://www.germany4ukraine.de" target="_blank" rel="noopener">Germany4Ukraine</a> — Головний державний багатомовний портал (від Мін'юсту та BAMF). Інформація про в'їзд, реєстрацію, пошук житла та медичну допомогу.
+        </li>
+        <li>
+            <a href="https://handbookgermany.de/uk" target="_blank" rel="noopener">Handbook Germany (Україна)</a> — Незалежна платформа, де простою мовою пояснюються німецькі закони, правила інтеграції, визнання дипломів та нюанси життя в країні.
+        </li>
+        <li>
+            <a href="https://www.arbeitsagentur.de/ukraine" target="_blank" rel="noopener">Arbeitsagentur (Джобцентр)</a> — Спеціальний розділ Федерального агентства зайнятості для українців. Інструкції щодо допомоги громадян (Bürgergeld), пошуку роботи та виплат на дітей (Kindergeld).
+        </li>
+    </ul>
+
+    <h2>📞 Гарячі лінії підтримки (Українською мовою)</h2>
+    <ul class="ua-list">
+        <li>
+            <strong>Міжнародна організація з міграції (IOM):</strong><br>
+            Допомога з питань перебування та прав у Німеччині. Консультації у месенджерах (WhatsApp, Telegram, Viber):
+            <ul class="ua-messenger-list">
+                <li><a href="tel:+380504284565" class="ua-phone-link">+38 050 428 45 65</a></li>
+                <li><a href="tel:+380500302268" class="ua-phone-link">+38 050 030 22 68</a></li>
+                <li><a href="tel:+380504284660" class="ua-phone-link">+38 050 428 46 60</a></li>
+            </ul>
+        </li>
+        <li>
+            <strong>Гаряча лінія ЄС для біженців:</strong><br>
+            Відповіді українською мовою щодо загальних питань захисту на території Європейського Союзу.<br>
+            Номер для дзвінків з Німеччини: <a href="tel:0080067891011" class="ua-phone-link">00 800 6 7 8 9 10 11</a> (Безкоштовно)
+        </li>
+        <li>
+            <strong>Консультації з питань роботи та інтеграції (BAMF):</strong><br>
+            Телефон: <a href="tel:+493018151111" class="ua-phone-link">+49 30 1815 - 1111</a><br>
+            <small style="color: #666;">(Пн–Чт: 09:00–16:00, Пт: 09:00–12:00. Оплата за тарифами міського зв'язку).</small>
+        </li>
+    </ul>
+
+    <h2>🏠 Гуманітарна допомога</h2>
+    <ul class="ua-list">
+
+        <li>
+            <a href="https://www.caritas.de" target="_blank" rel="noopener">Caritas Germany</a> — Одна з найбільших благодійних організацій Німеччини. На сайті можна знайти найближчу філію (Caritas vor Ort) для отримання одягу, продуктів та допомоги із документами.
+        </li>
+        <li>
+            <strong>Служба розшуку Червоного Хреста (DRK):</strong><br>
+            Допомога у відновленні зв'язку з родичами, які зникли через військові дії.<br>
+            Телефон: <a href="tel:+4989680773111" class="ua-phone-link">089 / 680 77 3 - 111</a> (Німецька/англійська мови) | Email: <a href="mailto:tracing@drk-suchdienst.de">tracing@drk-suchdienst.de</a>
+        </li>
+    </ul>
+</div>
+
+<div class="text-center mb-4">
+    <a href="{% url 'portal:main' %}" class="btn btn-outline-primary mb-4">
+        &larr; Zurück / Назад
+    </a>
+</div>
+
+<style>
+    body {
+        background-color: #e3f2fd !important;
+    }
+    .card {
+        transition: transform 0.3s;
+    }
+    .form-control:focus {
+        border-color: #ffc107;
+        box-shadow: 0 0 0 0.25rem rgba(255, 193, 7, 0.25);
+    }
+    :root {
             --primary-color: #1a365d;
             --secondary-color: #2b6cb0;
             --accent-color: #d69e2e;
@@ -113,107 +215,6 @@
             padding-left: 20px;
             font-size: 0.95em;
         }
-    </style>
-</head>
-<body>
-
-<div class="ua-help-container">
-
-    <div class="ua-important-notice">
-        <p>ℹ️ Важливо: Тимчасовий захист (параграф § 24) для українців у Німеччині офіційно продовжено до березня 2028 року.</p>
-    </div>
-
-    <h2>🚨 Екстрені служби (Безкоштовно, 24/7)</h2>
-    <div class="ua-table-wrapper">
-        <table class="ua-table">
-            <thead>
-                <tr>
-                    <th>Служба</th>
-                    <th>Номер телефону</th>
-                    <th>Коли дзвонити</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><strong>Поліція (Polizei)</strong></td>
-                    <td><a href="tel:110" class="ua-phone-link">📞 110</a></td>
-                    <td>Загроза безпеці, правопорушення, ДТП.</td>
-                </tr>
-                <tr>
-                    <td><strong>Пожежна служба та швидка</strong></td>
-                    <td><a href="tel:112" class="ua-phone-link">📞 112</a></td>
-                    <td>Загроза життю, важкі травми, пожежі, втрата свідомості.</td>
-                </tr>
-                <tr>
-                    <td><strong>Черговий лікар (Bereitschaftsdienst)</strong></td>
-                    <td><a href="tel:116117" class="ua-phone-link">📞 116 117</a></td>
-                    <td>Гострі симптоми (висока температура, біль) у нічний час або вихідні, коли звичайні праксиси зачинені.</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-
-    <h2>🌐 Офіційні державні портали</h2>
-    <ul class="ua-list">
-        <li>
-            <a href="https://www.germany4ukraine.de" target="_blank" rel="noopener">Germany4Ukraine</a> — Головний державний багатомовний портал (від Мін'юсту та BAMF). Інформація про в'їзд, реєстрацію, пошук житла та медичну допомогу.
-        </li>
-        <li>
-            <a href="https://handbookgermany.de/uk" target="_blank" rel="noopener">Handbook Germany (Україна)</a> — Незалежна платформа, де простою мовою пояснюються німецькі закони, правила інтеграції, визнання дипломів та нюанси життя в країні.
-        </li>
-        <li>
-            <a href="https://www.arbeitsagentur.de/ukraine" target="_blank" rel="noopener">Arbeitsagentur (Джобцентр)</a> — Спеціальний розділ Федерального агентства зайнятості для українців. Інструкції щодо допомоги громадян (Bürgergeld), пошуку роботи та виплат на дітей (Kindergeld).
-        </li>
-    </ul>
-
-    <h2>📞 Гарячі лінії підтримки (Українською мовою)</h2>
-    <ul class="ua-list">
-        <li>
-            <strong>Міжнародна організація з міграції (IOM):</strong><br>
-            Допомога з питань перебування та прав у Німеччині. Консультації у месенджерах (WhatsApp, Telegram, Viber):
-            <ul class="ua-messenger-list">
-                <li><a href="tel:+380504284565" class="ua-phone-link">+38 050 428 45 65</a></li>
-                <li><a href="tel:+380500302268" class="ua-phone-link">+38 050 030 22 68</a></li>
-                <li><a href="tel:+380504284660" class="ua-phone-link">+38 050 428 46 60</a></li>
-            </ul>
-        </li>
-        <li>
-            <strong>Гаряча лінія ЄС для біженців:</strong><br>
-            Відповіді українською мовою щодо загальних питань захисту на території Європейського Союзу.<br>
-            Номер для дзвінків з Німеччини: <a href="tel:0080067891011" class="ua-phone-link">00 800 6 7 8 9 10 11</a> (Безкоштовно)
-        </li>
-        <li>
-            <strong>Консультації з питань роботи та інтеграції (BAMF):</strong><br>
-            Телефон: <a href="tel:+493018151111" class="ua-phone-link">+49 30 1815 - 1111</a><br>
-            <small style="color: #666;">(Пн–Чт: 09:00–16:00, Пт: 09:00–12:00. Оплата за тарифами міського зв'язку).</small>
-        </li>
-    </ul>
-
-    <h2>🏠 Гуманітарна допомога</h2>
-    <ul class="ua-list">
-
-        <li>
-            <a href="https://www.caritas.de" target="_blank" rel="noopener">Caritas Germany</a> — Одна з найбільших благодійних організацій Німеччини. На сайті можна знайти найближчу філію (Caritas vor Ort) для отримання одягу, продуктів та допомоги із документами.
-        </li>
-        <li>
-            <strong>Служба розшуку Червоного Хреста (DRK):</strong><br>
-            Допомога у відновленні зв'язку з родичами, які зникли через військові дії.<br>
-            Телефон: <a href="tel:+4989680773111" class="ua-phone-link">089 / 680 77 3 - 111</a> (Німецька/англійська мови) | Email: <a href="mailto:tracing@drk-suchdienst.de">tracing@drk-suchdienst.de</a>
-        </li>
-    </ul>
-
-</div>
-<style>
-    body {
-        background-color: #e3f2fd !important; /* Тот самый голубой фон */
-    }
-    .card {
-        transition: transform 0.3s;
-    }
-    .form-control:focus {
-        border-color: #ffc107;
-        box-shadow: 0 0 0 0.25rem rgba(255, 193, 7, 0.25);
-    }
 </style>
 
 

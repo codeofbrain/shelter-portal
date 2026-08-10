@@ -42,6 +42,7 @@ class CustomUser(AbstractUser):
     leiterin = models.BooleanField(default=False)
 
     last_news_visit = models.DateTimeField(null=True,blank=True)
+    last_new_aufgaben_list_visit = models.DateTimeField(null=True,blank=True)
 
 
 class CleaningArea(models.Model):

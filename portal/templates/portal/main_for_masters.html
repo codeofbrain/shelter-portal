@@ -8,13 +8,17 @@
 
         <div class="col-md-6">
             <a href="{% url 'portal:master_list' %}" class="btn btn-outline-dark btn-lg w-100 py-4 shadow-sm border-2">
-                📰 Neue Aufgaben
+                <div class="fw-bold text-dark">📰 Neue Aufgaben
+                    {% if new_aufgaben_count > 0 %}
+                        <span class="badge bg-primary ms-1">({{new_aufgaben_count}})</span>
+                    {% endif %}
+                </div>
             </a>
         </div>
 
         <div class="col-md-6">
             <a href="{% url 'portal:task_in_progress' %}" class="btn btn-outline-dark btn-lg w-100 py-4 shadow-sm border-2">
-                🛠 In progress
+                🛠 In Bearbeitung
             </a>
         </div>
 

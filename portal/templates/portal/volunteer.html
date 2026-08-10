@@ -5,7 +5,7 @@
 
 <div class="container py-2">
     <div class=" text-center  text-dark mb-2">
-        <h2>Unsere Volunteers <span class="fi fi-de"></h2>
+        <h2>Unsere Sozialarbeiter <span class="fi fi-de"></h2>
         <div class="mx-auto bg-warning rounded" style="width: 320px; height: 4px;"></div>
     </div>
     <div class="row text-center">
@@ -36,18 +36,27 @@
             <div class="card shadow border-0 rounded-4 overflow-hidden mt-4 p-3">
                 <img src="{% static 'portal/images/av_man3.jpg' %}" class="img-fluid rounded-circle shadow-sm border border-white border-4 mx-auto avatar-frame"
                 style="width: 150px; height:150px; object-fit: cover">
-                <h3 class="text-muted lead text-center">Unser Volunteer: Herr Schwarzkopf </h3>
-                <a href="mailto:schwarzkopf@gmail.com">schwarzkopf@gmail.com</a>
+                <h3 class="text-muted lead text-center">Büro Diakonie</h3>
+                <a href="mailto:integration.rv@diakonie.oab.de">integration.rv@diakonie.oab.de</a>
 
                 <div class="mt-2">
-                    <div><a href="tel:+4915563285198" class="ua-phone-link">WhatsApp: +49 15563285198</a></div>
+                    <div><a href="Tel:075135925270" class="ua-phone-link"> Tel: 075135925270</a></div>
                 </div>
+                <div class="mt-2">
+                    <p class="text-center text-primary">Florianstr. 2/2</p>
+                    <div><a href="{% url 'portal:diakonie' %}">Mehr Details / Детальніше</a></div>
+                </div>
+
             </div>
         </div>
     </div>
 
 
-
+        <div class="text-center mb-4">
+            <a href="{% url 'portal:main' %}" class="btn btn-outline-primary mb-4">
+                &larr; Zurück / Назад
+            </a>
+        </div>
 
 </div>
 
