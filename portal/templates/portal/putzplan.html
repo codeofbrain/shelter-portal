@@ -20,15 +20,15 @@
 
 
     <div class="card shadow border-0 rounded-4 overflow-hidden">
-
-            <table class="table table-sm table-bordered align-middle text-center mb-0 w-100" style="table-layout: fixed;">
+          <div class="table-responsive">
+            <table class="table table-sm table-bordered align-middle text-center text-nowrap mb-0 w-100" style="table-layout: fixed;">
                 <thead class="table-dark">
                     <tr>
                         <th class="p-2 align-middle" style="width: 130px; font-size: 0.9rem">
                             Bereiche / Datum<br><small class="text-white-50">(ділянка / дата)</small>
                         </th>
                         {% for week in weeks %}
-                        <th class="p-2 align-middle" style="font-size: 0.9rem">
+                        <th class="p-2 align-middle" style="font-size: 0.9rem; min-width: 65px;">
                             {{ week.date_start|date:"d.m" }}<br>-<br>{{ week.date_end|date:"d.m" }}
                         </th>
                         {% endfor %}
@@ -37,7 +37,7 @@
                 <tbody>
                     {% for row in matrix %}
                     <tr>
-                        <th class="p-2 align-middle" style="font-size: 0.9rem;">
+                        <th class="p-2 align-middle" style="font-size: 0.9rem; min-width: 140px; width: 140px;">
                             {{ row.area.name_de }}<br>
                             <small class="text-muted fw-normal" style="font-size: 0.75rem;">({{ row.area.name_ua }})</small>
                         </th>
@@ -50,6 +50,7 @@
                                 {% elif duty.status == 'done' %}table-success text-success fw-bold
                                 {% elif duty.status == 'failed' %}table-danger text-danger fw-bolder text-decoration-line-through
                                 {% endif %}"
+                                style="min-width: 65px;"
                             >
                                 {% if duty %}
                                     {% if user.is_superuser %}
@@ -70,7 +71,7 @@
                     {% endfor %}
                 </tbody>
             </table>
-
+          </div>
     </div>
 </div>
 <div class="text-center mb-4">
@@ -93,6 +94,24 @@
     .hover-trigger:hover {
     background-color: rgba(0,0,0,0.08);
     cursor: pointer;
+    }
+
+    .table-responsive {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch; /* Плавный скролл на iPhone */
+    }
+
+    /* Запрещаем тексту в ячейках разрываться по одной букве/цифре */
+    .table th, table td {
+    white-space: nowrap;
+    padding: 8px 12px; /* Добавит немного воздуха вокруг текста */
+    }
+
+    /* Первый столбец (где названия) фиксируем или разрешаем переносить нормально */
+    .table td:first-child, table th:first-child {
+    white-space: normal;
+    min-width: 120px; /* Чтобы названия зон не превращались в узкие полоски */
     }
 </style>
 

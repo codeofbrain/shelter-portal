@@ -263,7 +263,7 @@ def main_for_masters(request):
     last_visit = request.user.last_new_aufgaben_list_visit
 
     if last_visit:
-        new_aufgaben_count = MaintenanceRequest.objects.filter(staus='new',date_added__gt=last_visit).count()
+        new_aufgaben_count = MaintenanceRequest.objects.filter(status='new',date_added__gt=last_visit).count()
     else:
         new_aufgaben_count = MaintenanceRequest.objects.filter(status='new').count()
     context = {'new_aufgaben_count': new_aufgaben_count}
