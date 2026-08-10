@@ -21,7 +21,7 @@
 
     <div class="card shadow border-0 rounded-4 overflow-hidden">
           <div class="table-responsive">
-            <table class="table table-sm table-bordered align-middle text-center text-nowrap mb-0 w-100" style="table-layout: fixed;">
+            <table class="table table-sm table-bordered align-middle text-center text-nowrap mb-0 w-100" style="min-width: 800px;">
                 <thead class="table-dark">
                     <tr>
                         <th class="p-2 align-middle" style="width: 130px; font-size: 0.9rem">
@@ -113,6 +113,22 @@
     white-space: normal;
     min-width: 120px; /* Чтобы названия зон не превращались в узкие полоски */
     }
+
+     /* Фиксируем первую колонку */
+    .table-responsive table th:first-child,
+    .table-responsive table td:first-child {
+     position: sticky;
+     left: 0;
+     background-color: #fff; /* Белый фон, чтобы даты проезжали ПОД текстом */
+     z-index: 2; /* Поднимаем слой выше остальной таблицы */
+     box-shadow: 2px 0 5px rgba(0,0,0,0.1); /* Легкая тень для красоты */
+    }
+
+    /* Для заголовка первой колонки (темный фон) */
+   .table-responsive table thead th:first-child {
+    background-color: #212529; /* Темный цвет, как у шапки table-dark */
+    z-index: 3;
+   }
 </style>
 
 
