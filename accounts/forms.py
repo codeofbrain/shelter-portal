@@ -25,14 +25,10 @@ class HotelLoginForm(AuthenticationForm):
     def clean(self):
         room_number = self.cleaned_data.get('room_number','').strip()
         user_name = self.cleaned_data.get('username','').strip()
-        print('test')
-        print(room_number)
-        print(user_name)
         if room_number and user_name:
             self.cleaned_data['username'] = f'{room_number}_{user_name}'
         else:
             self.cleaned_data['username'] = user_name
-        print(f'{room_number}_{user_name}')
         return super().clean()
 
 
@@ -59,25 +55,22 @@ class HotelRegisterForm(UserCreationForm):
 
     def clean(self):
         cleaned_data = super().clean()
-        room_number = cleaned_data.get('room_number','').strip()
-        user_name = self.cleaned_data.get('username','').strip()
+        room_number = cleaned_data.get('room_number', '').strip()
+        user_name = self.cleaned_data.get('username', '').strip()
 
         if room_number and user_name:
             full_username = f'{room_number}_{user_name}'
-            if User.objects.filter(username=full_username).exists:
+            if User.objects.filter(username=full_username).exists():
                 raise forms.ValidationError('Ein benutzer mit dieser Zimmernummer und diesem Namen existiert bereits')
+            cleaned_data['username'] = full_username
+        elif user_name:
+            cleaned_data['username'] = user_name
         return cleaned_data
 
-    def save(self,commit=True):
+    def save(self, commit=True):
         user = super().save(commit=False)
-        room_number = self.cleaned_data.get('room_number','').strip()
-        username = self.cleaned_data.get('username','').strip()
         user.is_active = False
-
-        if room_number and username:
-            user.username = f'{room_number}_{username}'
-        else:
-            user.username = username
+        user.username = self.cleaned_data.get('username')
 
         if commit:
             user.save()

@@ -12,6 +12,9 @@ from django.urls import reverse
 from accounts.templatetags.decorators import user_required
 from django.utils import timezone
 from django.utils.dateparse import parse_datetime
+from django.core.mail import send_mail
+import resend
+from django.conf import settings
 
 @login_required()
 @user_required('bewohner')
@@ -114,7 +117,6 @@ def main(request):
         if not request.GET.get('bypass'):
             return redirect('portal:main_for_staff')
     elif user.master or user.is_superuser:
-        print(f'{user.username} | master = {user.master} | leiterin = {user.leiterin} | bewohner = {user.bewohner}')
         return redirect('portal:main_for_masters')
     context = {'new_news_count': new_news_count}
     return render(request,'portal/main.html',context)
@@ -150,6 +152,29 @@ def maintenance(request):
             repair_request.user_name = request.user
             repair_request.room_number = room_number
             repair_request.save()
+
+            resend.api_key = settings.RESEND_API_KEY
+            subject = 'Ein neuer Reparaturantrag'
+
+            message = (
+                f'Sehr geehrte Damen und Herren,\n'
+                f'leider haben wir so ein Problem:\n\n'
+                f'{repair_request.description}\n\n'
+                f'Mit freundlichen Grüßen\n'
+                f'{user_name}, Zimmer - {room_number}\n'
+                )
+
+            try:
+                print('mail')
+                resend.Emails.send({
+                    'from': 'onboarding@resend.dev',
+                    'to':'goldeneuhrportal@gmail.com',
+                    'subject': subject,
+                    'text': message
+                })
+            except Exception as e:
+                print(f'Error send Mail: {e}')
+
             messages.success(request, 'Ihre Anfrage wurde erfolgreich übermittelt.<br>Ваш запит успішно надіслано')
             return redirect('portal:maintenance')
 
@@ -223,16 +248,16 @@ def master_list_arhiv(request):
 
 
 @login_required()
-@require_POST
 def complete_request(request,pk):
    claim = get_object_or_404(MaintenanceRequest, id=pk)
    claim.status = 'done'
    claim.save()
-   return redirect('portal:master_list_arhiv')
+   return redirect('portal:maintenance')
+
 
 
 @login_required()
-@require_POST
+@user_required('master')
 def in_progress(request,pk):
    claim = get_object_or_404(MaintenanceRequest, id=pk)
    claim.status = 'in_progress'
@@ -250,9 +275,34 @@ def canceled_tasks(request):
 @login_required()
 @user_required('bewohner')
 def task_cancel(request,pk):
+    username_parts = request.user.username.split('_')
+    room_number = username_parts[0] if len(username_parts) > 1 else '_'
+    user_name = username_parts[1] if len(username_parts) > 1 else '_'
+
     claim = get_object_or_404(MaintenanceRequest, id=pk)
     claim.status = 'none'
     claim.save()
+
+    subject = 'Reparaturantrag storniert'
+    recipients = ['mykhailovserz@gmail.com']
+
+    message = (
+        f'Sehr geehrte Damen und Herren,\n'
+        f'folgendes Problem ist nicht mehr aktuell:\n\n'
+        f'"{claim.description}"\n\n'
+        f'Mit freundlichen Grüßen\n'
+        f'{user_name}, Zimmer - {room_number}\n'
+    )
+
+    try:
+        send_mail(subject=subject,
+                  message=message,
+                  from_email=None,
+                  recipient_list=recipients,
+                  fail_silently=False,
+                  )
+    except Exception as e:
+        print(f'Error send Mail: {e}')
     messages.warning(request,'Ihre Anfrage wurde erfolgreich storniert.<br>Ваш запит успішно скасовано.')
     return redirect('portal:maintenance')
 

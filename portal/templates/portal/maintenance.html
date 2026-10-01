@@ -31,7 +31,8 @@
                         <th class="problem-column width: 40%">Problem<br><small class="text-muted fw-normal ms-1">Проблема</small></th>
                         <th class="width: 15%">Datum<br><small class="text-muted fw-normal ms-1">Дата</small></th>
                         <th style="width: 10%">Status<br><small class="text-muted fw-normal ms-1">Статус</small></th>
-                        <th style="width: 10%">Stornieren<br><small class="text-muted fw-normal ms-1">Скасувати</small></th>
+                        <th style="width: 10%">Ergebnis<br><small class="text-muted fw-normal ms-1">Результат</small></th>
+
                     </tr>
                 </thead>
                 <tbody>
@@ -42,8 +43,25 @@
                             <td class="problem-column">{{el.description}}</td>
                             <td>{{el.date_added | date:"d.m.Y H:i"}}</td>
                             <td>{{el.get_status_display}}</td>
-                            <td><a href="{% url 'portal:task_cancel' el.id %}" class="btn btn-sage-outline btn-sm">Stornieren <br><small class="text-muted fw-normal ms-1">Скасувати</small></a> </td>
-
+                            <!--- <td><a href="{% url 'portal:task_cancel' el.id %}" class="btn btn-sage-outline btn-sm">Stornieren <br><small class="text-muted fw-normal ms-1">Скасувати</small></a> </td> -->
+                            <td>
+                                <div class="dropdown float-end">
+                                    <button class="btn btn-link text-muted text-center p-0 text-decoration-none" type="button" data-bs-toggle="dropdown" aria-expanded="false">Klicken
+                                        &#8942;
+                                    </button>
+                                    <ul class="dropdown-menu dropdown-menu-end">
+                                        <!-- Кнопка Скасувати -->
+                                        <li>
+                                            <a href="{% url 'portal:task_cancel' el.id %}" class="btn btn-sage-outline d-block w-100 h-100 text-center rounded-0 border-0" style="width: 100%; height=70px">Stornieren <br><small class="text-muted  ">Скасувати</small></a>
+                                        </li>
+                                        <li><hr class="dropdown-divider my-1"></li>
+                                        <!-- Кнопка Зроблено -->
+                                        <li>
+                                            <a href="{% url 'portal:complete_request' el.id %}" class="btn btn-sage-outline d-block w-100 text-center rounded-0 border-0" style="width: 100%;">Gemacht<br><small class="text-muted">Зроблено</small></a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </td>
                         </tr>
                     {% empty %}
                         <tr>

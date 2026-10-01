@@ -51,12 +51,11 @@
                 <a class="nav-link text-danger fw-bold ms-auto"><a href="{% url 'accounts:new_user' %}">Anträge</a>
                 <a class="nav-link text-danger fw-bold ms-auto"><a href="{% url 'accounts:confirmed_users' %}">Bestätigt</a>
             {% endif %}
-
-            <div class="navbar-nav ms-auto">
-                <a class="nav-link fw-semibold text-warning" href="{% url 'portal:about' %}">Über uns / О нас👨‍👨‍👧‍👦 </a>
-
-            </div>
-
+            {% if request.path == '/' %}
+                <div class="navbar-nav ms-auto">
+                    <a class="nav-link fw-semibold text-warning" href="{% url 'portal:about' %}">Über uns / О нас👨‍👨‍👧‍👦 </a>
+                </div>
+            {% endif %}
         </div>
     </nav>
 <main class="container">
